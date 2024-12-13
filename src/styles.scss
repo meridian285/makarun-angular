@@ -1,1 +1,75 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+}
+
+main {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url("./assets/fonts/Gilroy-Regular.ttf");
+}
+
+@font-face {
+  font-family: Gilroy-Medium;
+  src: url("./assets/fonts/Gilroy-Medium.ttf");
+}
+
+@font-face {
+  font-family: Gilroy-Bold;
+  src: url("./assets/fonts/Gilroy-Bold.ttf");
+}
+
+@font-face {
+  font-family: Gilroy-ExtraBold;
+  src: url("./assets/fonts/Gilroy-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Tavolga;
+  src: url("./assets/fonts/tavolga-free.ttf");
+}
+
+@font-face {
+  font-family: Myriad Pro;
+  src: url("./assets/fonts/myriadpro-regular.ttf");
+}
+
+body {
+  font-family: "Gilroy", sans-serif;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1185px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
