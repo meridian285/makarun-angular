@@ -5,23 +5,6 @@
         <img src="./assets/images/logo.png" alt="Logo" class="logo__img">
       </div>
       <nav class="menu" id="menu">
-        <div class="close">
-          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-               xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-               viewBox="0 0 492 492" style="enable-background:new 0 0 492 492;" xml:space="preserve" height="36px" width="36px">
-                    <g>
-                        <g>
-                            <path d="M300.188,246L484.14,62.04c5.06-5.064,7.852-11.82,7.86-19.024c0-7.208-2.792-13.972-7.86-19.028L468.02,7.872
-                                c-5.068-5.076-11.824-7.856-19.036-7.856c-7.2,0-13.956,2.78-19.024,7.856L246.008,191.82L62.048,7.872
-                                c-5.06-5.076-11.82-7.856-19.028-7.856c-7.2,0-13.96,2.78-19.02,7.856L7.872,23.988c-10.496,10.496-10.496,27.568,0,38.052
-                                L191.828,246L7.872,429.952c-5.064,5.072-7.852,11.828-7.852,19.032c0,7.204,2.788,13.96,7.852,19.028l16.124,16.116
-                                c5.06,5.072,11.824,7.856,19.02,7.856c7.208,0,13.968-2.784,19.028-7.856l183.96-183.952l183.952,183.952
-                                c5.068,5.072,11.824,7.856,19.024,7.856h0.008c7.204,0,13.96-2.784,19.028-7.856l16.12-16.116
-                                c5.06-5.064,7.852-11.824,7.852-19.028c0-7.204-2.79F2-13.96-7.852-19.028L300.188,246z"/>
-                        </g>
-                    </g>
-                    </svg>
-        </div>
         <ul class="menu__list">
           <li class="menu__item">
             <a class="menu__link" (click)="scrollTo(productsElement)">Пироженки</a>
@@ -39,9 +22,12 @@
       <div class="burger" id="burger">
         <svg id="Layer_1" enable-background="new 0 0 512 512" height="36px" viewBox="0 0 512 512" width="36px"
              xmlns="http://www.w3.org/2000/svg">
-          <path d="m464.883 64.267h-417.766c-25.98 0-47.117 21.136-47.117 47.149 0 25.98 21.137 47.117 47.117 47.117h417.766c25.98 0 47.117-21.137 47.117-47.117 0-26.013-21.137-47.149-47.117-47.149z"/>
-          <path d="m464.883 208.867h-417.766c-25.98 0-47.117 21.136-47.117 47.149 0 25.98 21.137 47.117 47.117 47.117h417.766c25.98 0 47.117-21.137 47.117-47.117 0-26.013-21.137-47.149-47.117-47.149z"/>
-          <path d="m464.883 353.467h-417.766c-25.98 0-47.117 21.137-47.117 47.149 0 25.98 21.137 47.117 47.117 47.117h417.766c25.98 0 47.117-21.137 47.117-47.117 0-26.012-21.137-47.149-47.117-47.149z"/>
+          <path
+            d="m464.883 64.267h-417.766c-25.98 0-47.117 21.136-47.117 47.149 0 25.98 21.137 47.117 47.117 47.117h417.766c25.98 0 47.117-21.137 47.117-47.117 0-26.013-21.137-47.149-47.117-47.149z"/>
+          <path
+            d="m464.883 208.867h-417.766c-25.98 0-47.117 21.136-47.117 47.149 0 25.98 21.137 47.117 47.117 47.117h417.766c25.98 0 47.117-21.137 47.117-47.117 0-26.013-21.137-47.149-47.117-47.149z"/>
+          <path
+            d="m464.883 353.467h-417.766c-25.98 0-47.117 21.137-47.117 47.149 0 25.98 21.137 47.117 47.117 47.117h417.766c25.98 0 47.117-21.137 47.117-47.117 0-26.012-21.137-47.149-47.117-47.149z"/>
         </svg>
       </div>
     </header>
@@ -75,7 +61,7 @@
         <img src="../assets/images/big-macaroon.png" class="big-macaroon" alt="Большое пирожное">
       </div>
     </div>
-    <div class="advantages" >
+    <div class="advantages">
       <div class="advantages__item" *ngFor="let advantage of advantages; let i = index;">
         <div class="circle">{{ i + 1 }}</div>
         <span class="advantages__item__title">{{ advantage.title }}</span>
@@ -120,10 +106,12 @@
         </p>
         <form class="form" action="#">
           <span>Ваш выбор</span>
-          <input type="text" class="order__input" placeholder="Напишите, что хотите заказать..." [(ngModel)]="formValues.productTitle">
+          <input type="text" class="order__input" name="order" placeholder="Напишите, что хотите заказать..."
+                 [(ngModel)]="formValues.productTitle">
           <span>Заполните данные для заказа</span>
-          <input type="text" class="order__input" placeholder="Ваше имя" [(ngModel)]="formValues.name">
-          <input type="text" class="order__input" placeholder="+375 (__) ___ - __ - __" [(ngModel)]="formValues.phone">
+          <input type="text" class="order__input" name="name" placeholder="Ваше имя" [(ngModel)]="formValues.name">
+          <input type="text" class="order__input" name="phone" placeholder="+375 (__) ___ - __ - __"
+                 [(ngModel)]="formValues.phone">
           <button class="btn btn-form" (click)="createOrder()">Оформить заказ</button>
         </form>
         <img src="../assets/images/strawberry2.png" alt="Клубника" class="order-form__strawberry">
@@ -141,3 +129,23 @@
     <p>и получите подарок!</p>
   </div>
 </div>
+
+<footer class="footer">
+  <div class="container container-footer">
+    <div class="logo footer__logo">
+      <img src="./assets/images/logo.png" alt="Logo" class="logo__img" alt="Logo" class="logo__img">
+    </div>
+    <div class="instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="white">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      <span class="instagram__text">Мы в Instagram</span>
+    </div>
+    <div class="phone footer__phone">
+      <span class="phone__phone">{{phone}}</span>
+    </div>
+    <div class="rights">
+      <span class="logo__rights">Все права защищены, 2020</span>
+    </div>
+  </div>
+</footer>

@@ -81,7 +81,7 @@ export class AppComponent {
       return;
     }
     if (!this.formValues.phone) {
-      alert('Телефон адрес');
+      alert('Телефон');
       return;
     }
 
