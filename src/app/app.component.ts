@@ -1,4 +1,4 @@
-import {Component, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {AdvantagesTypes} from "./types/advantages.types";
 import {ProductType} from "./types/product.type";
 
@@ -12,6 +12,8 @@ export class AppComponent {
   public phone: string = '+375 (29) 368-98-68';
 
   public showPresent: boolean = true;
+
+  public instagram: string = 'https://instagram.com';
 
 
   public advantages: AdvantagesTypes[] = [
@@ -68,7 +70,7 @@ export class AppComponent {
 
   public addToCart(product: ProductType, target:HTMLElement): void {
     this.scrollTo(target);
-    this.formValues.productTitle = product.title;
+    this.formValues.productTitle = product.title.toUpperCase();
   }
 
   public createOrder(): void {
