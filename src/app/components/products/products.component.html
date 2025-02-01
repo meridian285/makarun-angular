@@ -1,0 +1,16 @@
+<div class="product-item">
+  <img class="product-item__img" src="../assets/images/{{product.image}}" alt="Макарун с малиной">
+  <span class="product-item__title">{{ product.title }}</span>
+  <div class="product-item__action">
+    <div class="product-item__price">
+      <div class="product-item__count">1 шт.</div>
+      <div class="product-item__price__price">{{ product.price | currency }}</div>
+    </div>
+    <div>
+      <a class="btn product-item__btn" (click)="addProductToCart()" bntAnimate
+      [bntAnimateDefaultBgImage]="'linear-gradient(90deg, rgb(113, 8, 30) 0%, rgb(215, 72, 92) 100%)'"
+      [bntAnimateMouseEnterBgImage]="'linear-gradient(90deg, rgb(18 16 16) 0%, rgb(215, 72, 92) 100%)'"
+      >Заказать</a>
+    </div>
+  </div>
+</div>

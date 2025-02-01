@@ -10,14 +10,14 @@
             <a class="menu__link" (click)="scrollTo(productsElement)">Пироженки</a>
           </li>
           <li class="menu__item">
-            <a class="menu__link" (click)="scrollTo(advantagesElement)">О нас</a>
+            <a class="menu__link" (click)="scrollTo(advantages)">О нас</a>
           </li>
           <li class="menu__item">
             <a class="menu__link" (click)="scrollTo(orderElement)">Оформить заказ</a></li>
         </ul>
       </nav>
       <div class="phone header__phone">
-        <span class="phone__phone">{{ phone }}</span>
+        <span class="phone__phone">{{ phone | formatPhone}}</span>
       </div>
       <div class="burger" id="burger">
         <svg id="Layer_1" enable-background="new 0 0 512 512" height="36px" viewBox="0 0 512 512" width="36px"
@@ -37,7 +37,7 @@
         <p class="main-info__text">Побалуйте себя и своих близких самыми вкусными и ароматными домашними
           пироженками Macaroon!</p>
         <div class="action">
-          <a class="btn main-info__btn" (click)="scrollTo(productsElement)">Выбрать макарун</a>
+          <a class="btn main-info__btn" (click)="scrollTo(productsElement)" bntAnimate>Выбрать макарун</a>
         </div>
       </div>
       <div class="main-image">
@@ -46,49 +46,16 @@
     </div>
   </div>
 </section>
-<section class="structure" #advantagesElement>
-  <div class="container white-container">
-    <div class="structure__main-info">
-      <div class="info-block">
-        <h2 class="structure__title">Мы печём для вас вкуснейшие макаруны уже более 10 лет</h2>
-        <p class="structure__text">Все пироженки мы готовим только из натуральных и качественных продуктов, без
-          консервантов,
-          ароматизаторов, красителей. Используем в приготовлении сливочное масло 82,5%, без дрожжей,
-          маргарина, разрыхлителей и улучшителей муки.
-        </p>
-      </div>
-      <div class="image-block">
-        <img src="../assets/images/big-macaroon.png" class="big-macaroon" alt="Большое пирожное">
-      </div>
-    </div>
-    <div class="advantages">
-      <div class="advantages__item" *ngFor="let advantage of advantages; let i = index;">
-        <div class="circle">{{ i + 1 }}</div>
-        <span class="advantages__item__title">{{ advantage.title }}</span>
-        <p class="advantages__item__text">
-          {{ advantage.description }}
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+
+<advantages #advantages></advantages>
+
 <section class="products" #productsElement>
   <div class="container container-products">
     <h2 class="products__title">Выберите свой макарун</h2>
     <div class="products-items">
-      <div class="product-item" *ngFor="let product of products;">
-        <img class="product-item__img" src="../assets/images/{{product.image}}" alt="Макарун с малиной">
-        <span class="product-item__title">{{ product.title }}</span>
-        <div class="product-item__action">
-          <div class="product-item__price">
-            <div class="product-item__count">1 шт.</div>
-            <div class="product-item__price__price">{{ product.price }} руб.</div>
-          </div>
-          <div>
-            <a class="btn product-item__btn" (click)="addToCart(product, orderElement)">Заказать</a>
-          </div>
-        </div>
-      </div>
+      <products *ngFor="let product of products;" [product]="product"
+                (addToCartEvent)="addToCart(product, orderElement)"></products>
+
     </div>
   </div>
 </section>
@@ -112,7 +79,7 @@
           <input type="text" class="order__input" name="name" placeholder="Ваше имя" [(ngModel)]="formValues.name">
           <input type="text" class="order__input" name="phone" placeholder="+375 (__) ___ - __ - __"
                  [(ngModel)]="formValues.phone">
-          <button class="btn btn-form" (click)="createOrder()">Оформить заказ</button>
+          <button class="btn btn-form" (click)="createOrder()" bntAnimate>Оформить заказ</button>
         </form>
         <img src="../assets/images/strawberry2.png" alt="Клубника" class="order-form__strawberry">
       </div>
@@ -121,28 +88,32 @@
 </section>
 
 <div class="present" *ngIf="showPresent">
+
   <div class="present__circle">
-    <img class="present__img" src="../assets/images/present.png" alt="Подарок">
+    <img class="present__img" src="../assets/images/cart.png" alt="Корзина">
   </div>
+
+  <div class="count">{{cartService.getCount()}}</div>
   <div class="present__message">
-    <p>Оформите заказ</p>
-    <p>и получите подарок!</p>
+    <span class="price">{{ sumPrice }}</span>
+    <span>руб</span>
   </div>
 </div>
 
 <footer class="footer">
   <div class="container container-footer">
     <div class="logo footer__logo">
-      <img src="./assets/images/logo.png" alt="Logo" class="logo__img" alt="Logo" class="logo__img">
+      <img src="./assets/images/logo.png" class="logo__img" alt="Logo">
     </div>
     <div class="instagram">
       <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="white">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        <path
+          d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
       </svg>
       <a [href]="instagram" class="instagram__text">Мы в Instagram</a>
     </div>
     <div class="phone footer__phone">
-      <span class="phone__phone">{{ phone }}</span>
+      <span class="phone__phone">{{ phone | formatPhone}}</span>
     </div>
     <div class="rights">
       <span class="logo__rights">Все права защищены, 2020</span>

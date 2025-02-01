@@ -1,62 +1,26 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdvantagesTypes} from "./types/advantages.types";
 import {ProductType} from "./types/product.type";
+import {ProductsService} from "./services/products.service";
+import {CartService} from "./services/cart.service";
+import {ProductPriceService} from "./services/product-price.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  public phone: string = '+375 (29) 368-98-68';
+  public phone: string = '375293689868';
 
   public showPresent: boolean = true;
 
+  public sumPrice: number = 0;
+
   public instagram: string = 'https://instagram.com';
 
-
-  public advantages: AdvantagesTypes[] = [
-    {
-      title: 'Лучшие продукты',
-      description: 'Мы честно готовим макаруны только из натуральных и качественных продуктов. Мы не используем консерванты, ароматизаторы и красители.',
-    },
-    {
-      title: 'Много вкусов',
-      description: 'Наша задача – предоставить вам широкое разнобразие вкусов. Вы удивитесь, но у нас более 70 вкусов пироженок.',
-    },
-    {
-      title: 'Бисквитное тесто',
-      description: 'Все пирожные готовятся на бисквитном тесте с качественным сливочным маслом 82,5%. В составе нет маргарина и дрожжей!',
-    },
-    {
-      title: 'Честный продукт',
-      description: 'Вкус, качество и безопасность наших пирогов подтверждена декларацией о соответствии, которую мы получили 22.06.2016 г.',
-    }
-  ]
-
-  public products: ProductType[] = [
-    {
-      title: 'Маракун с Малиной',
-      image: '1.png',
-      price: 1.70,
-    },
-    {
-      title: 'Маракун с манго',
-      image: '2.png',
-      price: 1.70,
-    },
-    {
-      title: 'Пирог с ванилью',
-      image: '3.png',
-      price: 1.70,
-    },
-    {
-      title: 'Пирог с фисташками',
-      image: '4.png',
-      price: 1.70,
-    },
-  ];
+  public products: ProductType[] = [];
 
   public formValues = {
     productTitle: '',
@@ -64,13 +28,24 @@ export class AppComponent {
     phone: '',
   }
 
-  public scrollTo(target: HTMLElement): void {
-    target.scrollIntoView({behavior:"smooth"});
+  constructor(private productService: ProductsService, public cartService: CartService, public productsPrice: ProductPriceService) {
   }
 
-  public addToCart(product: ProductType, target:HTMLElement): void {
+  ngOnInit() {
+    this.products = this.productService.getProducts();
+  }
+
+  public scrollTo(target: HTMLElement): void {
+    target.scrollIntoView({behavior: "smooth"});
+  }
+
+  public addToCart(product: ProductType, target: HTMLElement): void {
     this.scrollTo(target);
     this.formValues.productTitle = product.title.toUpperCase();
+    this.cartService.count++;
+    this.sumPrice = Math.round((this.sumPrice += product.price) * 100) / 100;
+
+    alert(product.title + ' добавлен в корзину!');
   }
 
   public createOrder(): void {
